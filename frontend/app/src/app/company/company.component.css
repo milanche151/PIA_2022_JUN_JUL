@@ -1,0 +1,24 @@
+.showNo{
+    display: none;
+}
+
+.thick {
+  font-weight: bold;
+}
+.sala {
+  background-image: "assets/pod.jpeg";
+}
+.basta{
+  background-image: "assets/basta.jpeg";
+}
+.mat-tab-label{
+ 
+  background-image:"../assets/pod.jpeg"
+    
+}
+.full-height {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}

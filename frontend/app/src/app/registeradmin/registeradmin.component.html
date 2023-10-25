@@ -1,0 +1,46 @@
+<h2>Registrujte se kao administrator</h2>
+
+<table>
+    <tr>
+        <td>Ime</td>
+        <td>
+        <input type="text" name="firstname" [(ngModel)]="firstname">
+        </td>
+    </tr>
+    <tr>
+        <td>Prezime</td>
+        <td>
+        <input type="text" name="lastname" [(ngModel)]="lastname">
+        </td>
+    </tr>
+    <tr>
+        <td>Korisnicko ime</td>
+        <td>
+        <input type="text" name="username" [(ngModel)]="username">
+        </td>
+    </tr>
+    <tr>
+        <td>Sifra</td>
+        <td>
+        <input type="password" name="password" [(ngModel)]="password">
+        </td>
+    </tr>
+    <tr>
+        <td>Telefon</td>
+        <td>
+        <input type="text" name="type" [(ngModel)]="telefon">
+        </td>
+    </tr>
+    <tr>
+        <td>Broj lk</td>
+        <td>
+        <input type="text" name="type" [(ngModel)]="brojlk">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button (click)="register()">Register</button>
+        </td>
+    </tr>
+</table>
+{{message}}

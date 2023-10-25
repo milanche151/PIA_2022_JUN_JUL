@@ -1,0 +1,19 @@
+<h2>Promenite sifru</h2>
+{{username}}
+
+<table>
+  <tr>
+    <td>Stara sifra</td> <td><input type="password"[(ngModel)]="pass"> </td> 
+  </tr>
+  <tr>
+   <td>Nova sifra:</td> <td><input type="password"[(ngModel)]="newPasword"> </td> 
+ </tr>
+  <tr>
+    <td>Potvrdite sifru:</td> <td><input type="password"  [(ngModel)]="retyped"></td>
+  </tr>
+  <tr colspan="2">
+    <button (click)="validate()">Potvrdi</button>
+  </tr>
+</table>
+<br>
+{{message}}

@@ -1,0 +1,25 @@
+<table>
+    <tr>
+        <td>Username</td>
+        <td>
+            <input type="text" name="username" [(ngModel)]="username">
+        </td>
+    </tr>
+    <tr>
+        <td>Password</td>
+        <td>
+            <input type="password" name="passsword" [(ngModel)]="password">
+        </td>
+    </tr>
+    <tr colspan="2">
+        <button (click)="login()">LogIn</button>
+    </tr>
+</table>
+<br>
+<input type="radio" value="0" name="type" [(ngModel)]="type"> Fizicko lice
+<input type="radio" value="2" name="type" [(ngModel)]="type"> Pravno lice
+<br>
+{{message}}
+<br>
+
+Da biste registrovali preduzece pritisnite <a routerLink="/companyreg" (click)="register()">ovde</a>

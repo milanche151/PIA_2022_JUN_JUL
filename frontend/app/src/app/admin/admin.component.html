@@ -1,0 +1,127 @@
+<h1>Administratorska stranica</h1>
+
+Zdravo {{username}}
+
+<br>
+<style>
+    table {
+        border-collapse:collapse;
+    }
+    tr {
+        border:none;
+    }
+    th, td {
+        border-collapse:collapse;
+        border: 1px solid black;
+        padding-top:0;
+        padding-bottom:0;
+    }
+    .verticalSplit {
+        border-top:none;
+        border-bottom:none;
+    }
+    .verticalSplit:first-of-type {
+        border-left:none;
+    }
+    .verticalSplit:last-of-type {
+        border-right:none;
+    }
+    </style>
+
+Dodaj preduzece <a href="/companyreg">ovde</a>
+<br>
+Dodaj kupca <a href="/register">ovde</a>
+<br>
+
+<input type="checkbox" value="true" [(ngModel)]="showReqs">Prikazi zahteve
+<br>
+<div id="newpost" [class.show]="showReqs==false">
+    Zahtevi za registraciju preduzeca:
+        <form>
+            <table>
+                <tr>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>Telefon</th> 
+                    <th>Mejl</th>
+                    <th>Naziv</th>
+                    <th>Adresa</th>
+                    <th>Pib</th>
+                    <th>Mat. broj</th>
+                    <th>Logo</th>
+                </tr>
+                <tr *ngFor="let n of allRequests">
+                   
+                    <td  name = "ime" >{{n.korisnik.firstname}}</td>
+                    <td  name = "prezime"  >{{n.korisnik.lastname}}</td>
+                    <td  name = "tel">{{n.telefon}}</td>
+                    <td  name = "mejl"  >{{n.mejl}}</td>
+                    <td  name = "naziv" >{{n.naziv}}</td>
+                    <td  name = "adresa" >{{n.adresa[3]}},{{n.adresa[2]}} {{n.adresa[1]}}</td>
+                    <td  name = "pib" >{{n.pib}}</td>
+                    <td  name = "mat" >{{n.maticnibroj}}</td>
+                    <td> <img src="{{n.slika}}" alt="error loading image" width="100px" height="=100px"></td>
+                    <td>
+                        <button (click)="addComp(n)" >Prihvati zahtev</button>
+                    </td>
+                    <td>
+                        <button (click)="deleteReq(n,n.korisnik)">Odbij zahtev</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+</div>
+<hr>
+<input type="checkbox" value="true" [(ngModel)]="showComp">Prikazi kompanije
+<div id="newpost" [class.show]="showComp==false">
+   Lista kompanija
+    <form>
+        <table>
+            <tr>
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Telefon</th>
+                <th>Mejl</th>
+                <th>Naziv</th>
+                <th>Adresa</th>
+                <th>Pib</th>
+                <th>Mat. broj</th>
+                <th>Logo</th>
+                <th>Status</th>
+                <!--<th>Kategorija</th>
+                <th>Sifra delatnosti</th>
+                <th>PDV</th>
+                <th>Broj racuna</th>
+                <th>Broj magacina</th>
+                <th>Broj kasa</th>-->
+            </tr>
+            <tr *ngFor="let n of allCompanies">
+                <td  name = "tel" >{{n.korisnik.firstname}}</td>
+                <td  name = "tel" >{{n.korisnik.lastname}}</td>
+                <td  name = "tel" >{{n.telefon}}</td>
+                <td  name = "mejl" >{{n.mejl}}</td>
+                <td  name = "naziv">{{n.naziv}}</td>
+                <td  name = "adresa">{{n.adresa[3]}},{{n.adresa[2]}} {{n.adresa[1]}}</td>
+                <td  name = "pib">{{n.pib}}</td>
+                <td  name = "pib">{{n.maticnibroj}}</td>
+                <td> <img src="{{n.slika}}" alt="error loading image" width="100px" height="=100px"></td>
+                <td>{{n.status}}</td>
+                <td>
+                    <button (click)=" activate(n)" >Aktiviraj</button>
+                </td>
+                <td>
+                    <button (click)="deactivate(n)">Deaktiviraj</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+<br>
+<br>
+
+Pritisnite <a routerLink="/changepass">ovde</a> da biste promenili šifru.
+<br>
+<br>
+<button (click)="logout()">Izlogujte se</button>
+

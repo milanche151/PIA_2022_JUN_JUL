@@ -1,0 +1,7 @@
+.show{
+    display: none;
+}
+.vl {
+    border-left: 6px solid black;
+    height: 100;
+}

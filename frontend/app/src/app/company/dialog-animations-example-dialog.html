@@ -1,0 +1,39 @@
+<table>
+    <thead>
+      <tr>
+        <th>Sifra</th>
+        <th>Naziv</th>
+        <th>Jed. mere</th>
+        <th>Stopa</th>
+        <th>Proizvodjac</th>
+        <th>Dodaj</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of dataObs$ | async;let index=index">
+        <td>
+          {{ data.sifra }}
+        </td>
+        <td>
+          {{ data.naziv }}
+        </td>
+        <td>
+          {{ data.jedinica_mere }}
+        </td>
+        <td>
+          {{ data.stopa }}
+        </td>
+        <td>
+            {{ data.proizvodjac }}
+        </td>
+        <td>
+           
+           <button (click)="dodajArtikal(ind,index)">Dodaj</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>No</button>
+    <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+  </div>

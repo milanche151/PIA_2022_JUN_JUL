@@ -1,0 +1,23 @@
+<h1>Administratorski nalozi</h1>
+
+<table>
+    <tr>
+        <td>Username</td>
+        <td>
+            <input type="text" name="username" [(ngModel)]="username">
+        </td>
+    </tr>
+    <tr>
+        <td>Password</td>
+        <td>
+            <input type="password" name="passsword" [(ngModel)]="password">
+        </td>
+    </tr>
+    <tr colspan="2">
+        <button (click)="login()">LogIn</button>
+    </tr>
+</table>
+{{message}}
+<br>
+
+Pritisnuti za <a routerLink="/registerAdmin">registraciju</a>

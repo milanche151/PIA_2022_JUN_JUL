@@ -1,0 +1,98 @@
+<h3>Registracija kompanije</h3>
+
+<form>
+<table>
+
+            <tr>
+                <td>Ime</td>
+                <td>
+                    <input name="1" type="text" [(ngModel)]="ime">
+                </td>
+            </tr>
+            <tr>
+                <td>Prezime</td>
+                <td>
+                    <input  name="2" type="text" [(ngModel)]="prezime">
+                </td>
+            </tr>
+            <tr>
+                <td>Korsničko ime</td>
+                <td>
+                    <input name="3" type="text" [(ngModel)]="username">
+                </td>
+            </tr>
+            <tr>
+                <td>Šifra</td>
+                <td>
+                    <input name="4" type="password" [(ngModel)]="sifra">
+                </td>
+            </tr>
+            <tr>
+                <td>Potvrdite šifru</td>
+                <td>
+                    <input name="5" type="password" [(ngModel)]="retype">
+                </td>
+            </tr>
+            <tr>
+                <td>Telefon</td>
+                <td>
+                    <input name="6" type="text" [(ngModel)]="telefon">
+                </td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td>
+                    <input name="7"  type="text" [(ngModel)]="mejl">
+                </td>
+            </tr>
+            <tr>
+                <td>Naziv firme</td>
+                <td>
+                    <input name="8" type="text" [(ngModel)]="naziv">
+                </td>
+            </tr>
+            <tr>
+                <td>Adresa</td>
+                <td>
+                    Država
+                    <input name="91" type="text" [(ngModel)]="drzava">
+                </td>
+                <td>
+                    Grad
+                    <input name="92" type="text" [(ngModel)]="grad">
+                </td>
+                <td>
+                    Poštanski broj
+                    <input name="94" type="text" [(ngModel)]="pbroj">
+                </td>
+                <td>
+                    Ulica
+                    <input name="93" type="text" [(ngModel)]="ulica">
+                </td>
+            </tr>
+            <tr>
+                <td>PIB</td>
+                <td>
+                    <input name="10" type="text" [(ngModel)]="pib">
+                </td>
+            </tr>
+            <tr>
+                <td>Matični broj firme</td>
+                <td>
+                    <input name="11" type="text" [(ngModel)]="maticnibroj">
+                </td>
+            </tr>
+            <tr>
+                <td>Logo</td>
+                <td>
+                    <input name="12" type="file" (change)="onFileChanged($event)">
+                </td>
+            </tr>
+            <tr colspan="2">
+                <button (click)="addComp()">Potvrdi</button>
+            </tr>
+
+
+</table>
+
+</form>

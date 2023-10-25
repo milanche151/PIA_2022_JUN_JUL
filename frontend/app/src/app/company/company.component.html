@@ -1,0 +1,562 @@
+<h2>Preduzeće</h2>
+<style>
+    table {
+        border-collapse:collapse;
+    }
+    tr {
+        border:none;
+    }
+    th, td {
+        border-collapse:collapse;
+        border: 1px solid black;
+        padding-top:0;
+        padding-bottom:0;
+    }
+    .verticalSplit {
+        border-top:none;
+        border-bottom:none;
+    }
+    .verticalSplit:first-of-type {
+        border-left:none;
+    }
+    .verticalSplit:last-of-type {
+        border-right:none;
+    }
+    </style>
+<div id="div1" [class.showNo]="!first">
+    <form>
+        <table>
+            <tr>
+                <td>Kategorija</td>
+                <td>
+                    <select name="kategorija" [(ngModel)]="kategorija">
+                        <option value="Ugostiteljski objekat">Ugostiteljski objekat</option>
+                        <option value="Prodavnica">Prodavnica</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Šifra delatnosti</td>
+                
+                  <td><input type="text" name="sifra" [(ngModel)]="sifra"></td>
+               
+            </tr>
+
+
+            
+            <tr>
+                <td>PDV ?</td>
+                <td>
+                    <input type="radio" name="da" value="true" [(ngModel)]="pdv" >Da
+                    <input type="radio" name="ne"value="false"[(ngModel)]="pdv " >Ne
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Žiro račun
+                </td>
+                <td>
+                    <input type="text" name="ziro" [(ngModel)]="ziro">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Kase
+                </td>
+                <td>
+                    <input type="number" name="kase" [(ngModel)]="kase" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Magacini
+                </td>
+                <td>
+                    <input type="number" name="magacini" [(ngModel)]="magacini" >
+                </td>
+            </tr>
+            <tr colspan="2">
+                <button (click)="submit()" >
+                        Pošaljite podatke
+                </button>
+            </tr>
+        </table>
+
+    </form>
+
+</div>
+<div id="div2" [class.showNo]="first || (menu1 || menu2 || menu3 || menu4 || menu5)">
+    <button mat-button [matMenuTriggerFor]="menu">Meni</button>
+    <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="meni1()">Podaci</button>
+    <button mat-menu-item (click)="meni2()">Naručioci</button>
+    <button mat-menu-item (click)="meni3()">Robe i usluge</button>
+    <button mat-menu-item (click)="meni4()">Raspored artikala</button>
+    <button mat-menu-item (click)="meni5()">Raspored stolova</button>
+</mat-menu>
+</div>
+<div id="div3" [class.showNo]="!menu1" >
+    <h3>Podaci</h3> 
+        <mat-tab-group>
+        <mat-tab label="Podaci"> Podaci 
+            <br>
+            <table>
+                <tr>
+                    <td [class.thick]="true"> Ime i prezime odgovornog lica:</td> 
+                    <td>{{myComp?myComp.korisnik.firstname:null}} {{myComp?myComp.korisnik.lastname:null}}</td>
+                </tr>
+                <tr>
+                    <td [class.thick]="true"> Telefon:</td> 
+                    <td>{{myComp?myComp.telefon:null}}</td>
+                </tr>
+                <tr>
+                    <td [class.thick]="true"> E-mail adresa:</td> 
+                    <td>{{myComp?myComp.mejl:null}}</td>
+                </tr>
+                <tr>
+                    <td [class.thick]="true"> Naziv preduzeća:</td> 
+                    <td>{{myComp?myComp.naziv:null}}</td>
+                </tr>
+                <tr>
+                    <td [class.thick]="true"> Adresa</td> 
+                    <td  name = "adresa" >{{myComp?myComp.adresa[3]:null}},{{myComp?myComp.adresa[2]:null}} {{myComp?myComp.adresa[1]:null}}</td>
+                </tr>
+
+            </table> 
+        </mat-tab>
+        <mat-tab label="Ziro racuni"> Ziro racuni 
+
+            <br>
+            <table *ngFor="let i of myComp?myComp.ziro:null">
+                <tr>
+                    {{i}}
+                </tr>
+               
+
+            </table> 
+        </mat-tab>
+        <mat-tab label="Magacini i kase"> Magacini i kase
+            <br>
+            Magacini
+            <table>
+                <tr *ngFor="let i of nizmagacina;let index=index;">
+                    <td>{{i.id}}</td>
+                    <td [class.showNo]="!edit"><input type="text" [(ngModel)]="nizmagacina[index].naziv" placeholder="naziv"></td>
+                    <td [class.showNo]="edit">Naziv:{{myComp.mag[index].naziv}}</td>
+                   
+                </tr> 
+              <tr>  <button [class.showNo]="!edit" (click)="izmeniM()">Izmeni</button> </tr>
+            </table>
+            <br>
+            Kase
+            <table>
+                <tr *ngFor="let i of nizkasa;let index=index;">
+                    
+                    <td [class.showNo]="!edit"><input type="text" [(ngModel)]="nizkasa[index].lokacija" placeholder="Lokacija"></td>
+                    <td [class.showNo]="!edit"><select name="tip" id="tipkase" [(ngModel)]="nizkasa[index].tip" placeholder="tip">
+                            <option value="Model1">Model1</option>
+                            <option value="Model2">Model2</option>
+                            <option value="Model3">Model3</option>
+
+                        </select></td>
+                        <td [class.showNo]="edit" >Tip:{{myComp.kas[index].tip}}-Lokacija:{{myComp.kas[index].lokacija}}</td>
+                </tr>
+                <tr>  <button [class.showNo]="!edit" (click)="izmeniK()">Izmeni</button> </tr>
+            </table>
+           Omogući menjanje <input type="checkbox" name="edit" id="edit" [(ngModel)]="edit">
+        </mat-tab>
+        </mat-tab-group>
+        <br>
+        <br>
+        <br>
+        <br>
+    <button (click)="reset()">Pocetni meni</button>
+</div>
+<div id="div4" [class.showNo]="!menu2" >
+  <h3>Naručioci</h3>  
+  <table>
+
+    <tr>
+        <td>Ime</td>
+        <td>
+            <input name="1" type="text" [(ngModel)]="narucilac.korisnik.firstname">
+        </td>
+    </tr>
+    <tr>
+        <td>Prezime</td>
+        <td>
+            <input  name="2" type="text" [(ngModel)]="narucilac.korisnik.lastname">
+        </td>
+    </tr>
+    <tr>
+        <td>Korsničko ime</td>
+        <td>
+            <input name="3" type="text" [(ngModel)]="narucilac.korisnik.username">
+        </td>
+    </tr>
+    <tr>
+        <td>Šifra</td>
+        <td>
+            <input name="4" type="password" [(ngModel)]="narucilac.korisnik.password">
+        </td>
+    </tr>
+    <tr>
+        <td>Telefon</td>
+        <td>
+            <input name="6" type="text" [(ngModel)]="narucilac.telefon">
+        </td>
+    </tr>
+    <tr>
+        <td>E-mail</td>
+        <td>
+            <input name="7"  type="text" [(ngModel)]="narucilac.mejl">
+        </td>
+    </tr>
+    <tr>
+        <td>Naziv firme</td>
+        <td>
+            <input name="8" type="text" [(ngModel)]="narucilac.naziv">
+        </td>
+    </tr>
+    <tr>
+        <td>Adresa</td>
+        <td>
+            Država
+            <input name="91" type="text" [(ngModel)]="drzava">
+        </td>
+        <td>
+            Grad
+            <input name="92" type="text" [(ngModel)]="grad">
+        </td>
+        <td>
+            Poštanski broj
+            <input name="94" type="text" [(ngModel)]="pbroj">
+        </td>
+        <td>
+            Ulica
+            <input name="93" type="text" [(ngModel)]="ulica">
+        </td>
+    </tr>
+    <tr>
+        <td>PIB</td>
+        <td>
+            <input name="10" type="text" [(ngModel)]="narucilac.pib">
+        </td>
+    </tr>
+    <tr>
+        <td>Matični broj firme</td>
+        <td>
+            <input name="11" type="text" [(ngModel)]="narucilac.maticnibroj">
+        </td>
+    </tr>
+    <tr>
+        <td>Logo</td>
+        <td>
+            <input name="12" type="file" (change)="onFileChanged($event)">
+        </td>
+    </tr>
+    <tr>
+        <td>Broj dana za plaćanje</td>
+        <td>
+            <input name="13" type="number" [(ngModel)]="brDana">
+        </td>
+    </tr>
+    <tr>
+        <td>Procenat rabata</td>
+        <td>
+            <input name="14" type="number" [(ngModel)]="rabat" min="0" max="99">
+        </td>
+    </tr>
+    <tr colspan="2">
+        <button (click)="addP()">Potvrdi</button>
+    </tr>
+</table>
+<hr>
+    Preko PIB-a:
+    <br>
+    <input type="text" [(ngModel)]="pib">
+    <button (click)="addPib()">Pretrazi PIB</button>
+    <br>
+    <select name="smth" [(ngModel)]="mb"  >
+        <option *ngFor="let p of purchs" [value]="p.maticnibroj">{{p.naziv}}</option>
+    </select >
+    <br>
+    <input name="13" type="number" [(ngModel)]="brDana">
+    <br>
+    <input name="14" type="number" [(ngModel)]="rabat"  min="0" max="99">
+    <br>
+    <button (click)="addP1()">Izaberi narucioca</button>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <button (click)="reset()">Pocetni meni</button>
+</div>
+<div id="div5" [class.showNo]="!menu3" >
+    Robe i usluge
+
+    <br>
+
+    <table>
+        <thead>
+          <tr>
+            <th>Sifra</th>
+            <th>Naziv</th>
+            <th>Jed. mere</th>
+            <th>Stopa</th>
+            <th>Proizvodjac</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of dataObs$ | async">
+            <td>
+              {{ data.sifra }}
+            </td>
+            <td>
+              {{ data.naziv }}
+            </td>
+            <td>
+              {{ data.jedinica_mere }}
+            </td>
+            <td>
+              {{ data.stopa }}
+            </td>
+            <td>
+                {{ data.proizvodjac }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+     <mat-paginator 
+         [pageSizeOptions]="[5, 10, 25, 100]"
+            [pageSize]="5"
+            aria-label="Select page"
+            ></mat-paginator>
+   
+    <br>
+    <br>
+    <br>
+    <button (click)="unos()">Unos</button>
+    <br>
+    <div [class.showNo]="!unosenje">
+        Unesite artikal:
+        <form #myForm="ngForm">
+            <mat-tab-group>
+            <mat-tab label="Opšti podaci"> 
+                
+                <table>
+                        <tr>
+                            <td>Šifra</td> <td><input type="text" name="111" [(ngModel)]="tmpart.sifra" required></td>
+                        </tr>
+                        <tr>
+                            <td>Naziv</td> <td><input type="text" name="112" [(ngModel)]="tmpart.naziv" required></td>
+                        </tr>
+                        <tr>
+                            <td>Jed. mere</td> <td><input type="text" name="113" [(ngModel)]="tmpart.jedinica_mere" required></td>
+                        </tr>
+                        <tr>
+                            <td>Poreska stopa</td> <td>
+                                <select name="selp" id="selp1"  name="114" [(ngModel)]="tmpart.stopa" required >
+                                        <option value=0 name="115" [class.showNo]="myComp.pdv">0%</option>
+                                        <option value=10  name="116"[class.showNo]="!myComp.pdv">10%(posebna stopa)</option>
+                                        <option value=20  name="117"[class.showNo]="!myComp.pdv">20%(opšta stopa)</option>
+                                </select></td>
+                        </tr>
+                        <tr [class.showNo]="prod">
+                            <td>Tip</td> <td><input type="radio" value="hrana" name="tip" [(ngModel)]="tmpart.tip" >Hrana
+                                             <input type="radio" value="pice"  name="tip" [(ngModel)]="tmpart.tip" >Piće
+                                             <input type="radio" value="sirovina" name="tip"  [(ngModel)]="tmpart.tip">Sirovina</td>
+                        </tr>
+                        <tr>
+                            <td>Proizvodjac</td> <td><input type="text" name="118" [(ngModel)]="tmpart.proizvodjac" required></td>
+                        </tr>
+
+
+                </table>
+            
+            </mat-tab>
+            <mat-tab label="Dopunski podaci"> 
+                    <br>
+                    <br>
+                    <br>
+                
+            </mat-tab>
+            <mat-tab label="Cene i stanje robe">
+
+                <br>
+                <br>
+                
+                <table>
+                    <tr>
+                        <th>Naziv magacina</th>
+                        <th>Nabavna cena RSD</th>
+                        <th>Prodajna cena RSD</th>
+                        <th>Trenutno stanje u magacinu</th>
+                        <th>Minimalna željena količina</th>
+                        <th>Maksimalna željena količina</th>
+                    </tr>
+                    <tr *ngFor="let mag of nizmagacina;let i = index">
+                        <td>{{mag.naziv}}</td>
+                        <td><input type="text" name="nabavna" [(ngModel)]="tmpartw[i].nabavna"></td>
+                        <td><input type="text" name="prodajna" [(ngModel)]="tmpartw[i].prodajna"></td>
+                        <td><input type="text" name="stanje" [(ngModel)]="tmpartw[i].stanje"></td>
+                        <td><input type="text" name="minkol" [(ngModel)]="tmpartw[i].minkol"></td>
+                        <td><input type="text" name="maxkol" [(ngModel)]="tmpartw[i].maxkol"></td>
+                    </tr>
+                </table>
+                
+                <br>
+                <br>
+            
+            
+                 </mat-tab>
+                 </mat-tab-group>
+            <button (click)="unesi()" [disabled]="!myForm.form.valid">Unesite</button>(Moguce samo ako su uneta sva polja iz prvog jezička)
+        </form>
+    </div>
+    <br>
+    <button (click)="reset()">Pocetni meni</button>
+</div>
+<div id="div6" [class.showNo]="!menu4" >
+    Raspored artikala
+    <br>
+  
+    <table>
+        <thead>
+          <tr>
+            <th>Sifra</th>
+            <th>Naziv</th>
+            <th>Jed. mere</th>
+            <th>Stopa</th>
+            <th>Proizvodjac</th>
+            <th>Dodaj</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of dataObs1$ | async;let index=index">
+            <td>
+              {{ data.sifra }}
+            </td>
+            <td>
+              {{ data.naziv }}
+            </td>
+            <td>
+              {{ data.jedinica_mere }}
+            </td>
+            <td>
+              {{ data.stopa }}
+            </td>
+            <td>
+                {{ data.proizvodjac }}
+            </td>
+            <td>
+               
+               <button (click)="dodajArtikal(ind,index)">Dodaj</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+     <mat-paginator 
+         [pageSizeOptions]="[5, 10, 25, 100]"
+            [pageSize]="5"
+            aria-label="Select page1"
+            ></mat-paginator> 
+            
+    <br>
+    <div>
+        <input type="text" [(ngModel)]="kategorijaR"> <br>
+        <button mat-raised-button
+                class="example-add-tab-button"
+                (click)="addTab(selectAfterAdding.checked)">
+          Dodajte kategoriju
+        </button>
+        <mat-checkbox #selectAfterAdding> Naviguj se na dodati jezicak </mat-checkbox>
+      </div>
+      
+      <mat-tab-group [selectedIndex]="selected.value"
+                     (selectedIndexChange)="selected.setValue($event)" #tabGroup (selectedTabChange)="tabChanged($event)">
+        <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
+         <table>
+                <thead>
+                  <tr>
+                    <th>Sifra</th>
+                    <th>Naziv</th>
+                    <th>Jed. mere</th>
+                    <th>Stopa</th>
+                    <th>Proizvodjac</th>
+                    <th>Dodaj</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of kats[ind];let index=index">
+                    <td>
+                      {{ data.sifra }}
+                    </td>
+                    <td>
+                      {{ data.naziv }}
+                    </td>
+                    <td>
+                      {{ data.jedinica_mere }}
+                    </td>
+                    <td>
+                      {{ data.stopa }}
+                    </td>
+                    <td>
+                        {{ data.proizvodjac }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <br>
+        <!-- <button mat-raised-button (click)="openDialog('0ms', '0ms')">Open dialog without animation</button> <br>--> 
+          <button mat-raised-button
+                  class="example-delete-tab-button"
+                  [disabled]="tabs.length === 1"
+                  (click)="removeTab(index)">
+           Obrisi jezicak
+          </button>
+        </mat-tab>
+      </mat-tab-group>
+    <br>
+    <br>
+    <br>
+    <br>
+    <button (click)="reset()">Pocetni meni</button>
+</div>
+<div id="div7" [class.showNo]="!menu5">
+    Raspored stolova
+    <br>
+    <br>
+    <mat-tab-group>
+        <mat-tab label="Sala">
+            <div [class.full-height]="true" [style.background-image]="'url('+ 'assets/pod.jpeg' + ')'">
+                Sala
+
+                
+                <br>
+                <button (click)="reset()">Pocetni meni</button> 
+            </div>
+          
+
+        </mat-tab>
+            <img src="assets/pod.jpeg" alt="No image">
+        <mat-tab label="Basta" >
+            <div [class.full-height]="true" [style.background-image]="'url('+ 'assets/basta.jpeg' + ')'">
+                Basta
+
+                
+                <br>
+                <button (click)="reset()">Pocetni meni</button> 
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+ 
+      
+<br>
+<br>
+Pritisnite <a routerLink="/changepass">ovde</a> da biste promenili šifru. <br>
+<button (click)="logout()">Izlogujte se</button>
